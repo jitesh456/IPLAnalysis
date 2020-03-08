@@ -25,11 +25,19 @@ public class CricketAnalyzerTest {
     }
 
     @Test
-    public void givenIPLRunData_WhenProper_ShouldReturnSortedStrikeRateOnBasicOf4and6Count() throws IOException {
+    public void givenIPLRunData_WhenProper_ShouldReturnSortedPlayerRateOnBasicOf4and6Count() throws IOException {
         CricketAnalyzer cricketAnalyzer=new CricketAnalyzer();
         String orderBy4And6Count = cricketAnalyzer.loadIplCsvData(IPL_MOST_RUN_CSV_FILE, SortedField.SORT_ON_6_AND_4);
         CricketMostRunCSV[] cricketMostRunCSV = new Gson().fromJson(orderBy4And6Count, CricketMostRunCSV[].class);
         Assert.assertEquals("Andre Russell",cricketMostRunCSV[cricketMostRunCSV.length-1].player);
+
+    }
+    @Test
+    public void givenIPLRunData_WhenProper_ShouldReturnSortedStrikeRateRateOnBasicOf4and6Count() throws IOException {
+        CricketAnalyzer cricketAnalyzer=new CricketAnalyzer();
+        String orderBy4And6Count = cricketAnalyzer.loadIplCsvData(IPL_MOST_RUN_CSV_FILE, SortedField.SORT_ON_6_AND_4);
+        CricketMostRunCSV[] cricketMostRunCSV = new Gson().fromJson(orderBy4And6Count, CricketMostRunCSV[].class);
+        Assert.assertEquals(204.81,cricketMostRunCSV[cricketMostRunCSV.length-1].strikeRate,0.0);
 
     }
 }
