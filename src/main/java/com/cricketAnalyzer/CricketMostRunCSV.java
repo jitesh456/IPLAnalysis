@@ -8,12 +8,15 @@ public class CricketMostRunCSV {
     public double average;
     @CsvBindByName(column = "PLAYER")
     public String player;
+    @CsvBindByName(column = "SR")
+    public double strikeRate;
 
     @Override
     public String toString() {
         return "CricketMostRunCSV{" +
                 "average=" + average +
                 ", player='" + player + '\'' +
+                ", strikeRate=" + strikeRate +
                 '}';
     }
 }

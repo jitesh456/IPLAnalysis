@@ -11,12 +11,18 @@ public class CricketAnalyzerTest {
     @Test
     public void givenIPLRunData_WhenProper_ShouldReturnSortedAvarageRun() throws IOException {
         CricketAnalyzer cricketAnalyzer=new CricketAnalyzer();
-        String avarageWiseSortedData = cricketAnalyzer.loadIplCsvData(IPL_MOST_RUN_CSV_FILE);
-        CricketMostRunCSV[] cricketMostRunCSV = new Gson().fromJson(avarageWiseSortedData, CricketMostRunCSV[].class);
+        String orderByAvarageData = cricketAnalyzer.loadIplCsvData(IPL_MOST_RUN_CSV_FILE,SortedField.AVERAGE);
+        CricketMostRunCSV[] cricketMostRunCSV = new Gson().fromJson(orderByAvarageData, CricketMostRunCSV[].class);
         Assert.assertEquals("MS Dhoni",cricketMostRunCSV[cricketMostRunCSV.length-1].player);
     }
-    @Test
 
+    @Test
+    public void givenIPLRunData_Whenproper_ShouldReturnSortedStrikeRate() throws IOException {
+        CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+        String orderByStrikeRateData = cricketAnalyzer.loadIplCsvData(IPL_MOST_RUN_CSV_FILE, SortedField.STRIKERATE);
+        CricketMostRunCSV[] cricketMostRunCSVS = new Gson().fromJson(orderByStrikeRateData, CricketMostRunCSV[].class);
+        Assert.assertEquals("Ishant Sharma", cricketMostRunCSVS[cricketMostRunCSVS.length - 1].player);
+    }
 
 
 }

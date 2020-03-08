@@ -11,29 +11,35 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.StreamSupport;
 
-
-
 public class CricketAnalyzer {
+    Map<SortedField,Comparator<CricketMostRunCSV>> sortMap;
 
     List<CricketMostRunCSV> cricketBattingInfo;
     public CricketAnalyzer() {
-
+        sortMap=new HashMap<>();
+        sortMap.put(SortedField.AVERAGE,Comparator.comparing(sortField->sortField.average));
+        sortMap.put(SortedField.STRIKERATE,Comparator.comparing(sortField->sortField.strikeRate));
         cricketBattingInfo =new ArrayList<>();
     }
 
-
-    public String loadIplCsvData(String csvFilePath) throws IOException {
+    public String loadIplCsvData(String csvFilePath, SortedField sortedField) throws IOException {
         try(Reader reader= Files.newBufferedReader(Paths.get(csvFilePath)))
         {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<CricketMostRunCSV> csvFileRunIterator = csvBuilder.getCSVFileIterator(reader, CricketMostRunCSV.class);
             Iterable<CricketMostRunCSV> iterable=()->csvFileRunIterator;
             StreamSupport.stream(iterable.spliterator(),false).forEach(csvInfo-> cricketBattingInfo.add(csvInfo));
-            Comparator<CricketMostRunCSV> csvComparator=Comparator.comparing(s->s.average);
-            this.sort(csvComparator);
+            Comparator<CricketMostRunCSV> cricketMostRunCSVComparator = sortMap.get(sortedField);
+            this.sort(cricketMostRunCSVComparator);
             String sortedData = new Gson().toJson(cricketBattingInfo);
             return sortedData;
+        }catch (IPLException e) {
 
+            throw new IPLException("Csv file problem",IPLException.ExceptionType.CSV_FILE_PROBLEM);
+        }
+        catch (RuntimeException e)
+        {
+            throw new IPLException("wrong field",IPLException.ExceptionType.NO_SUCH_FIELD);
         }
 
     }
