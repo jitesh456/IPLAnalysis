@@ -19,6 +19,7 @@ public class CricketAnalyzer {
         sortMap=new HashMap<>();
         sortMap.put(SortedField.AVERAGE,Comparator.comparing(sortField->sortField.average));
         sortMap.put(SortedField.STRIKERATE,Comparator.comparing(sortField->sortField.strikeRate));
+        sortMap.put(SortedField.SORT_ON_6_AND_4,Comparator.comparing(coutOf6And4->coutOf6And4.coutOf6s+coutOf6And4.coutOf4s));
         cricketBattingInfo =new ArrayList<>();
     }
 

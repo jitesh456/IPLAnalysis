@@ -10,6 +10,10 @@ public class CricketMostRunCSV {
     public String player;
     @CsvBindByName(column = "SR")
     public double strikeRate;
+    @CsvBindByName(column = "4s")
+    public int coutOf4s;
+    @CsvBindByName(column = "6s")
+    public int coutOf6s;
 
     @Override
     public String toString() {
