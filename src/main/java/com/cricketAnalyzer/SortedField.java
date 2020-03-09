@@ -1,5 +1,5 @@
 package com.cricketAnalyzer;
 
 public enum SortedField {
-    AVERAGE,STRIKERATE,SORT_ON_6_AND_4;
+    AVERAGE,STRIKE_RATE,SORT_ON_6_AND_4,STRIKE_RATE_WITH_6_AND_4;
 }

@@ -18,8 +18,10 @@ public class CricketAnalyzer {
     public CricketAnalyzer() {
         sortMap=new HashMap<>();
         sortMap.put(SortedField.AVERAGE,Comparator.comparing(sortField->sortField.average));
-        sortMap.put(SortedField.STRIKERATE,Comparator.comparing(sortField->sortField.strikeRate));
+        sortMap.put(SortedField.STRIKE_RATE,Comparator.comparing(sortField->sortField.strikeRate));
         sortMap.put(SortedField.SORT_ON_6_AND_4,Comparator.comparing(coutOf6And4->coutOf6And4.coutOf6s+coutOf6And4.coutOf4s));
+        Comparator<CricketMostRunCSV> comparing6And4 = Comparator.comparing(coutOf6And4Object->coutOf6And4Object.coutOf6s+coutOf6And4Object.coutOf4s);
+        sortMap.put(SortedField.STRIKE_RATE_WITH_6_AND_4,comparing6And4.thenComparing(strikeRateObjet->strikeRateObjet.strikeRate));
         cricketBattingInfo =new ArrayList<>();
     }
 
@@ -32,6 +34,7 @@ public class CricketAnalyzer {
             StreamSupport.stream(iterable.spliterator(),false).forEach(csvInfo-> cricketBattingInfo.add(csvInfo));
             Comparator<CricketMostRunCSV> cricketMostRunCSVComparator = sortMap.get(sortedField);
             this.sort(cricketMostRunCSVComparator);
+
             String sortedData = new Gson().toJson(cricketBattingInfo);
             return sortedData;
         }catch (IPLException e) {
