@@ -45,8 +45,14 @@ public class CricketAnalyzerTest {
         CricketAnalyzer cricketAnalyzer=new CricketAnalyzer();
         String orderBy4And6Count = cricketAnalyzer.loadIplCsvData(IPL_MOST_RUN_CSV_FILE, SortedField.AVERAGE_AND_STRIKE_RATE);
         CricketMostRunCSV[] cricketMostRunCSV = new Gson().fromJson(orderBy4And6Count, CricketMostRunCSV[].class);
-        Assert.assertEquals("Ishant Sharma",cricketMostRunCSV[cricketMostRunCSV.length-1].player);
+        Assert.assertEquals("Andre Russell",cricketMostRunCSV[cricketMostRunCSV.length-1].player);
     }
-
+    @Test
+    public void givenIPLRunData_WhenProper_ShouldReturnSortedDataOnBasicOfTotalRunAndStrikeRate() throws IOException {
+        CricketAnalyzer cricketAnalyzer=new CricketAnalyzer();
+        String orderBy4And6Count = cricketAnalyzer.loadIplCsvData(IPL_MOST_RUN_CSV_FILE, SortedField.RUN_WITH_AVERAGE);
+        CricketMostRunCSV[] cricketMostRunCSV = new Gson().fromJson(orderBy4And6Count, CricketMostRunCSV[].class);
+        Assert.assertEquals("MS Dhoni",cricketMostRunCSV[cricketMostRunCSV.length-1].player);
+    }
 
 }

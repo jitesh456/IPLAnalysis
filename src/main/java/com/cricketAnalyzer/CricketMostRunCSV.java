@@ -14,6 +14,8 @@ public class CricketMostRunCSV {
     public int coutOf4s;
     @CsvBindByName(column = "6s")
     public int coutOf6s;
+    @CsvBindByName(column = "Runs")
+    public int totalRun;
 
     @Override
     public String toString() {
