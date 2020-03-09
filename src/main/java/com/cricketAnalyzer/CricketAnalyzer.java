@@ -12,6 +12,9 @@ import java.util.*;
 import java.util.stream.StreamSupport;
 
 public class CricketAnalyzer {
+    public enum Match{
+        RUN,WICKET
+    }
     Map<SortedField,Comparator<CricketMostRunCSV>> sortMap;
 
     List<CricketMostRunCSV> cricketBattingInfo;
@@ -25,23 +28,18 @@ public class CricketAnalyzer {
         Comparator<CricketMostRunCSV> comparingAverage = Comparator.comparing(sortField -> sortField.average);
         sortMap.put(SortedField.STRIKE_RATE_WITH_6_AND_4,comparing6And4.thenComparing(strikeRateObjet->strikeRateObjet.strikeRate));
         sortMap.put(SortedField.AVERAGE_AND_STRIKE_RATE,comparingStrikeRate.thenComparing(average1->average1.average));
-
         sortMap.put(SortedField.RUN_WITH_AVERAGE,comparingAverage.thenComparing(totalRun->totalRun.totalRun));
         cricketBattingInfo =new ArrayList<>();
     }
 
-    public String loadIplCsvData(String csvFilePath, SortedField sortedField) throws IOException {
+    public void loadIplCsvData(String csvFilePath) throws IOException {
         try(Reader reader= Files.newBufferedReader(Paths.get(csvFilePath)))
         {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<CricketMostRunCSV> csvFileRunIterator = csvBuilder.getCSVFileIterator(reader, CricketMostRunCSV.class);
             Iterable<CricketMostRunCSV> iterable=()->csvFileRunIterator;
             StreamSupport.stream(iterable.spliterator(),false).forEach(csvInfo-> cricketBattingInfo.add(csvInfo));
-            Comparator<CricketMostRunCSV> cricketMostRunCSVComparator = sortMap.get(sortedField);
-            this.sort(cricketMostRunCSVComparator);
 
-            String sortedData = new Gson().toJson(cricketBattingInfo);
-            return sortedData;
         }catch (IPLException e) {
 
             throw new IPLException("Csv file problem",IPLException.ExceptionType.CSV_FILE_PROBLEM);
@@ -51,6 +49,13 @@ public class CricketAnalyzer {
             throw new IPLException("wrong field",IPLException.ExceptionType.NO_SUCH_FIELD);
         }
 
+    }
+    public String sortDataOn(SortedField sortedField)
+    {
+        Comparator<CricketMostRunCSV> cricketMostRunCSVComparator = sortMap.get(sortedField);
+        this.sort(cricketMostRunCSVComparator);
+        String sortedData = new Gson().toJson(cricketBattingInfo);
+        return sortedData;
     }
     private void sort(Comparator<CricketMostRunCSV> censusCSVComparator) {
 
