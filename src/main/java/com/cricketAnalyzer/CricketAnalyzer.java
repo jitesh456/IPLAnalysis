@@ -21,7 +21,9 @@ public class CricketAnalyzer {
         sortMap.put(SortedField.STRIKE_RATE,Comparator.comparing(sortField->sortField.strikeRate));
         sortMap.put(SortedField.SORT_ON_6_AND_4,Comparator.comparing(coutOf6And4->coutOf6And4.coutOf6s+coutOf6And4.coutOf4s));
         Comparator<CricketMostRunCSV> comparing6And4 = Comparator.comparing(coutOf6And4Object->coutOf6And4Object.coutOf6s+coutOf6And4Object.coutOf4s);
+        Comparator<CricketMostRunCSV> comparingStrikeRate = Comparator.comparing(sortField -> sortField.strikeRate);
         sortMap.put(SortedField.STRIKE_RATE_WITH_6_AND_4,comparing6And4.thenComparing(strikeRateObjet->strikeRateObjet.strikeRate));
+        sortMap.put(SortedField.AVERAGE_AND_STRIKE_RATE,comparingStrikeRate.thenComparing(average1->average1.average));
         cricketBattingInfo =new ArrayList<>();
     }
 
