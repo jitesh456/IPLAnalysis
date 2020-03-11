@@ -21,16 +21,15 @@ public class CricketAnalyzer {
         Comparator<CricketDTO> comparingStrikeRate = Comparator.comparing(sortField -> sortField.strikeRate);
         Comparator<CricketDTO> comparingAverage = Comparator.comparing(sortField -> sortField.average);
         sortMap.put(SortedField.STRIKE_RATE_WITH_6_AND_4,comparing6And4.thenComparing(strikeRateObjet->strikeRateObjet.strikeRate));
-        sortMap.put(SortedField.AVERAGE_AND_STRIKE_RATE,comparingStrikeRate.thenComparing(average1->average1.average));
-        sortMap.put(SortedField.RUN_WITH_AVERAGE,comparingAverage.thenComparing(totalRun->totalRun.totalRun));
+        sortMap.put(SortedField.AVERAGE_AND_STRIKE_RATE,comparingStrikeRate.thenComparing(averageField->averageField.average));
+        sortMap.put(SortedField.RUN_WITH_AVERAGE,comparingAverage.thenComparing(totalRunField->totalRunField.totalRun));
+        sortMap.put(SortedField.ECONOMY,Comparator.comparing(economyField->economyField.economy));
         cricketInfo =new ArrayList<>();
     }
 
     public void loadIplCsvData(String csvFilePath, Match match) throws IOException {
 
-
         cricketInfo= CricketFactoryAdapter.getCricketData(csvFilePath, match);
-
     }
     public String sortDataOn(SortedField sortedField)
     {
