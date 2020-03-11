@@ -9,6 +9,8 @@ public class CricketDTO {
     public int coutOf6s;
     public int totalRun;
     public  double economy;
+    public int wicket4;
+    public int wicket5;
 
 
     public CricketDTO(CricketMostRunCSV mostRunCSVObj) {
@@ -25,5 +27,7 @@ public class CricketDTO {
         this.average = mostWicketCSVObj.average;
         this.strikeRate=mostWicketCSVObj.strikeRate;
         this.economy=mostWicketCSVObj.economy;
+        this.wicket4=mostWicketCSVObj.wicket4;
+        this.wicket5=mostWicketCSVObj.wicket5;
     }
 }

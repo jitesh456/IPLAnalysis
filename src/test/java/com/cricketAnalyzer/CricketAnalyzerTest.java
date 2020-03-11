@@ -89,4 +89,12 @@ public class CricketAnalyzerTest {
         CricketDTO[] cricketDTOS = new Gson().fromJson(sortedDataOnBasicOfBowlingStrikeRate, CricketDTO[].class);
         Assert.assertEquals("Ben Cutting",cricketDTOS[cricketDTOS.length-1].player);
     }
+@Test
+    public void givenIplWicketData_WhenProper_ShouldReturnSortedDataOnBasicOfWicketAndStrikeRate() throws IOException {
+        CricketAnalyzer cricketAnalyzer=new CricketAnalyzer();
+        cricketAnalyzer.loadIplCsvData(IPL_MOST_WICKET_CSV_FILE,CricketAnalyzer.Match.WICKET);
+        String sortedDataOnBasicOfBowlingStrikeRate = cricketAnalyzer.sortDataOn(SortedField.STRIKE_RATE_WITH_5Wicket_AND_4Wicket);
+        CricketDTO[] cricketDTOS = new Gson().fromJson(sortedDataOnBasicOfBowlingStrikeRate, CricketDTO[].class);
+        Assert.assertEquals("Krishnappa Gowtham",cricketDTOS[cricketDTOS.length-1].player);
+    }
 }

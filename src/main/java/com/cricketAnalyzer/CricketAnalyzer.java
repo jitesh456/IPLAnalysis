@@ -24,6 +24,7 @@ public class CricketAnalyzer {
         sortMap.put(SortedField.AVERAGE_AND_STRIKE_RATE,comparingStrikeRate.thenComparing(averageField->averageField.average));
         sortMap.put(SortedField.RUN_WITH_AVERAGE,comparingAverage.thenComparing(totalRunField->totalRunField.totalRun));
         sortMap.put(SortedField.ECONOMY,Comparator.comparing(economyField->economyField.economy));
+        sortMap.put(SortedField.STRIKE_RATE_WITH_5Wicket_AND_4Wicket,comparingStrikeRate.thenComparing(wicket4And5Field->wicket4And5Field.wicket4+wicket4And5Field.wicket5));
         cricketInfo =new ArrayList<>();
     }
 
