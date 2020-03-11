@@ -22,5 +22,6 @@ public class CricketDTO {
     public CricketDTO(CricketMostWicketCSV mostWicketCSVObj) {
         this.player = mostWicketCSVObj.player;
         this.average = mostWicketCSVObj.average;
+        this.strikeRate=mostWicketCSVObj.strikeRate;
     }
 }
