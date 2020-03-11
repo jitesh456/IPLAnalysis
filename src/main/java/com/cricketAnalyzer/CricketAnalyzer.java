@@ -1,15 +1,9 @@
 package com.cricketAnalyzer;
 
-import com.csvfile.CSVBuilderFactory;
-import com.csvfile.ICSVBuilder;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.StreamSupport;
 
 public class CricketAnalyzer {
     public enum Match{
@@ -33,28 +27,9 @@ public class CricketAnalyzer {
     }
 
     public void loadIplCsvData(String csvFilePath, Match match) throws IOException {
-        try(Reader reader= Files.newBufferedReader(Paths.get(csvFilePath)))
-        {
-            if(match.equals(Match.RUN)) {
-                ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-                Iterator<CricketMostRunCSV> csvFileRunIterator = csvBuilder.getCSVFileIterator(reader, CricketMostRunCSV.class);
-                Iterable<CricketMostRunCSV> iterable = () -> csvFileRunIterator;
-                StreamSupport.stream(iterable.spliterator(), false)
-                        .forEach(csvInfo -> cricketInfo.add(new CricketDTO(csvInfo)));
-            }else if(match.equals(Match.WICKET))
-            {
-                ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-                Iterator<CricketMostWicketCSV> csvFileRunIterator = csvBuilder.getCSVFileIterator(reader,CricketMostWicketCSV.class );
-                Iterable<CricketMostWicketCSV> iterable = () -> csvFileRunIterator;
-                StreamSupport.stream(iterable.spliterator(), false).forEach(bowlerInfo->cricketInfo.add(new CricketDTO(bowlerInfo)));
-            }
-            else
-                throw new IPLException("not a valid match type",IPLException.ExceptionType.NOT_A_VALID_TYPE);
-        }catch (IPLException e) {
 
-            throw new IPLException("Csv file problem",IPLException.ExceptionType.CSV_FILE_PROBLEM);
-        }
 
+        cricketInfo= CricketFactoryAdapter.getCricketData(csvFilePath, match);
 
     }
     public String sortDataOn(SortedField sortedField)
