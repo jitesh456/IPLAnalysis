@@ -101,8 +101,16 @@ public class CricketAnalyzerTest {
     public void givenIplWicketData_WhenProper_ShouldReturnSortedDataOnBasicOfBowlingAverageAndStrikeRate() throws IOException {
         CricketAnalyzer cricketAnalyzer=new CricketAnalyzer();
         cricketAnalyzer.loadIplCsvData(IPL_MOST_WICKET_CSV_FILE,CricketAnalyzer.Match.WICKET);
-        String sortedDataOnBasicOfBowlingStrikeRate = cricketAnalyzer.sortDataOn(SortedField.AVERAGE_AND_STRIKE_RATE);
-        CricketDTO[] cricketDTOS = new Gson().fromJson(sortedDataOnBasicOfBowlingStrikeRate, CricketDTO[].class);
+        String sortedDataOnBasicOfBowlingAverageAndStrikeRate = cricketAnalyzer.sortDataOn(SortedField.AVERAGE_AND_STRIKE_RATE);
+        CricketDTO[] cricketDTOS = new Gson().fromJson(sortedDataOnBasicOfBowlingAverageAndStrikeRate, CricketDTO[].class);
         Assert.assertEquals("Krishnappa Gowtham",cricketDTOS[cricketDTOS.length-1].player);
+    }
+    @Test
+    public void givenIplWicketData_WhenProper_ShouldReturnSortedDataOnBasicOfMaxWicketAndAverage() throws IOException {
+        CricketAnalyzer cricketAnalyzer=new CricketAnalyzer();
+        cricketAnalyzer.loadIplCsvData(IPL_MOST_WICKET_CSV_FILE,CricketAnalyzer.Match.WICKET);
+        String sortedDataOnBasicOfBowlingStrikeRate = cricketAnalyzer.sortDataOn(SortedField.MAXIMUM_WICKET_AND_AVERAGE);
+        CricketDTO[] cricketDTOS = new Gson().fromJson(sortedDataOnBasicOfBowlingStrikeRate, CricketDTO[].class);
+        Assert.assertEquals("Imran Tahir",cricketDTOS[cricketDTOS.length-1].player);
     }
 }

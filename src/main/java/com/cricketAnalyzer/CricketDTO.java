@@ -11,6 +11,7 @@ public class CricketDTO {
     public  double economy;
     public int wicket4;
     public int wicket5;
+    public  int totalWicket;
 
 
     public CricketDTO(CricketMostRunCSV mostRunCSVObj) {
@@ -29,5 +30,6 @@ public class CricketDTO {
         this.economy=mostWicketCSVObj.economy;
         this.wicket4=mostWicketCSVObj.wicket4;
         this.wicket5=mostWicketCSVObj.wicket5;
+        this.totalWicket=mostWicketCSVObj.totalWicket;
     }
 }

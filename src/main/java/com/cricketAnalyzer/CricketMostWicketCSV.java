@@ -22,6 +22,10 @@ public class CricketMostWicketCSV {
     @CsvBindByName(column = "5w")
     public  int wicket5;
 
+    @CsvBindByName(column = "Wkts")
+
+    public  int totalWicket;
+
     @Override
     public String toString() {
         return "CricketMostWicketCSV{" +
@@ -31,6 +35,7 @@ public class CricketMostWicketCSV {
                 ", economy=" + economy +
                 ", wicket4=" + wicket4 +
                 ", wicket5=" + wicket5 +
+                ", totalWicket=" + totalWicket +
                 '}';
     }
 }
