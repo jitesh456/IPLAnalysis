@@ -27,13 +27,13 @@ public class CricketAnalyzer {
 
         List<CricketDTO> runData = CricketFactoryAdapter.getCricketData(csvFilePath[0],Match.RUN);;
         List<CricketDTO> wicketData = CricketFactoryAdapter.getCricketData(csvFilePath[1],Match.WICKET);;
-        for (int i = 0; i < runData.size()-1; i++) {
+        for (int i = 0; i < runData.size(); i++) {
             for (int j = 0; j < wicketData.size(); j++) {
                 if (runData.get(i).player.equals(wicketData.get(j).player)) {
                     if (type.equals(SortedField.ALL_ROUNDER_AVERAGE))
-                        playerData.put(wicketData.get(i).player, new IplAllRounderDTO(wicketData.get(i).player,wicketData.get(i).average - runData.get(j).average));
+                        playerData.put(runData.get(i).player, new IplAllRounderDTO(runData.get(i).player,runData.get(i).average * wicketData.get(j).average));
                     if (type.equals(SortedField.ALL_ROUNDER_WICKET_AND_RUN))
-                        playerData.put(wicketData.get(i).player, new IplAllRounderDTO(wicketData.get(i).player,wicketData.get(i).totalRun * runData.get(j).totalWicket));
+                        playerData.put(runData.get(i).player, new IplAllRounderDTO(runData.get(i).player,runData.get(i).average + wicketData.get(j).average));
                 }
             }
         }
@@ -54,7 +54,7 @@ public class CricketAnalyzer {
 
     private void sort(Comparator<CricketDTO> censusCSVComparator) {
 
-        for (int i = 0; i < cricketInfo.size() - 1; i++) {
+        for (int i = 0; i < cricketInfo.size() ; i++) {
             for (int j = 0; j < cricketInfo.size() - i - 1; j++) {
                 CricketDTO cricketInfo1 = cricketInfo.get(j);
                 CricketDTO cricketInfo2 = cricketInfo.get(j + 1);

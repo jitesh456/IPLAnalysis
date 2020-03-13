@@ -12,6 +12,7 @@ public class CricketInitializeSortMapComparator
         sortMap=new HashMap<>();
         sortMapAllRounder=new HashMap<>();
         sortMapAllRounder.put(SortedField.ALL_ROUNDER_AVERAGE, Comparator.comparing(averageField->averageField.average));
+        sortMapAllRounder.put(SortedField.ALL_ROUNDER_WICKET_AND_RUN, Comparator.comparing(averageField->averageField.average));
         sortMap.put(SortedField.AVERAGE,Comparator.comparing(sortField->sortField.average));
         sortMap.put(SortedField.STRIKE_RATE,Comparator.comparing(sortField->sortField.strikeRate));
         sortMap.put(SortedField.SORT_ON_6_AND_4,Comparator.comparing(coutOf6And4->coutOf6And4.coutOf6s+coutOf6And4.coutOf4s));

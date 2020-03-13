@@ -119,7 +119,15 @@ public class CricketAnalyzerTest {
         CricketAnalyzer cricketAnalyzer=new CricketAnalyzer();
         String sortOnAverageOfBowlingAndBatting = cricketAnalyzer.analyseIPLData(SortedField.ALL_ROUNDER_AVERAGE, IPL_MOST_RUN_CSV_FILE, IPL_MOST_WICKET_CSV_FILE);
         IplAllRounderDTO[] iplAllRounderDTOS = new Gson().fromJson(sortOnAverageOfBowlingAndBatting, IplAllRounderDTO[].class);
-        Assert.assertEquals("Krishnappa Gowtham",iplAllRounderDTOS[iplAllRounderDTOS.length-1].player);
+        Assert.assertEquals("Marcus Stoinis",iplAllRounderDTOS[iplAllRounderDTOS.length-1].player);
 
     }
+    @Test
+    public void givenIplWicketData_WhenProper_ShouldReturnSortedDataOnBasicOfTotalRunAndWicket() throws IOException {
+        CricketAnalyzer cricketAnalyzer=new CricketAnalyzer();
+        String sortOnAverageOfBowlingAndBatting = cricketAnalyzer.analyseIPLData(SortedField.ALL_ROUNDER_WICKET_AND_RUN, IPL_MOST_RUN_CSV_FILE, IPL_MOST_WICKET_CSV_FILE);
+        IplAllRounderDTO[] iplAllRounderDTOS = new Gson().fromJson(sortOnAverageOfBowlingAndBatting, IplAllRounderDTO[].class);
+        Assert.assertEquals("Krishnappa Gowtham",iplAllRounderDTOS[iplAllRounderDTOS.length-1].player);
+    }
+
 }
