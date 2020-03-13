@@ -2,16 +2,16 @@ package com.cricketAnalyzer;
 
 public class CricketDTO {
 
+    public int totalWicket;
+    public int wicket5;
+    public int wicket4;
+    public double economy;
     public double average;
     public String player;
     public double strikeRate;
     public int coutOf4s;
     public int coutOf6s;
     public int totalRun;
-    public  double economy;
-    public int wicket4;
-    public int wicket5;
-    public  int totalWicket;
 
 
     public CricketDTO(CricketMostRunCSV mostRunCSVObj) {
@@ -32,4 +32,7 @@ public class CricketDTO {
         this.wicket5=mostWicketCSVObj.wicket5;
         this.totalWicket=mostWicketCSVObj.totalWicket;
     }
+
+
+
 }

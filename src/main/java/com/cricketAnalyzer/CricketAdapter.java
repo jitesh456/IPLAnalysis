@@ -14,30 +14,25 @@ import java.util.stream.StreamSupport;
 
 public abstract class CricketAdapter {
     List<CricketDTO> cricketInfo=new ArrayList<>();
+
     public abstract List<CricketDTO> loadIplCsvData(String csvFilePath) throws IOException;
-    public List<CricketDTO>  loadIplCsvData(Class csvClass, String csvFilePath) throws IOException {
-        try(Reader reader= Files.newBufferedReader(Paths.get(csvFilePath)))
-        {
+    public <E>List<CricketDTO>  loadIplCsvData(Class csvClass, String csvFilePath) throws IOException {
+        try(Reader reader= Files.newBufferedReader(Paths.get(csvFilePath))) {
+            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+            Iterator<E> csvFileRunIterator = csvBuilder.getCSVFileIterator(reader, csvClass);
+            Iterable<E> iterable = () -> csvFileRunIterator;
             if(csvClass.getName().equals("com.cricketAnalyzer.CricketMostRunCSV")) {
-                ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-                Iterator<CricketMostRunCSV> csvFileRunIterator = csvBuilder.getCSVFileIterator(reader, CricketMostRunCSV.class);
-                Iterable<CricketMostRunCSV> iterable = () -> csvFileRunIterator;
-                StreamSupport.stream(iterable.spliterator(), false)
+                StreamSupport.stream(iterable.spliterator(), false).map(CricketMostRunCSV.class::cast)
                         .forEach(csvInfo -> cricketInfo.add(new CricketDTO(csvInfo)));
 
-            }else if(csvClass.getName().equals("com.cricketAnalyzer.CricketMostWicketCSV"))
-            {
-                ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-                Iterator<CricketMostWicketCSV> csvFileRunIterator = csvBuilder.getCSVFileIterator(reader,CricketMostWicketCSV.class );
-                Iterable<CricketMostWicketCSV> iterable = () -> csvFileRunIterator;
-                StreamSupport.stream(iterable.spliterator(), false).forEach(bowlerInfo->cricketInfo.add(new CricketDTO(bowlerInfo)));
+            }else if(csvClass.getName().equals("com.cricketAnalyzer.CricketMostWicketCSV")) {
+                StreamSupport.stream(iterable.spliterator(), false).map(CricketMostWicketCSV.class::cast).
+                        forEach(bowlerInfo->cricketInfo.add(new CricketDTO(bowlerInfo)));
             }
-
         }catch (IPLException e) {
 
             throw new IPLException("Csv file problem",IPLException.ExceptionType.CSV_FILE_PROBLEM);
         }
-
         return cricketInfo;
     }
 }

@@ -9,6 +9,7 @@ import java.io.IOException;
 public class CricketAnalyzerTest {
     public static final String IPL_MOST_RUN_CSV_FILE="./src/test/resources/IPL2019FactsheetMostRuns.csv";
     public static  final String IPL_MOST_WICKET_CSV_FILE="./src/test/resources/IPL2019FactsheetMostWkts.csv";
+
     @Test
     public void givenIPLRunData_WhenProper_ShouldReturnSortedAvarageRun() throws IOException {
         CricketAnalyzer cricketAnalyzer=new CricketAnalyzer();
@@ -112,5 +113,13 @@ public class CricketAnalyzerTest {
         String sortedDataOnBasicOfBowlingStrikeRate = cricketAnalyzer.sortDataOn(SortedField.MAXIMUM_WICKET_AND_AVERAGE);
         CricketDTO[] cricketDTOS = new Gson().fromJson(sortedDataOnBasicOfBowlingStrikeRate, CricketDTO[].class);
         Assert.assertEquals("Imran Tahir",cricketDTOS[cricketDTOS.length-1].player);
+    }
+    @Test
+    public void givenIplWicketData_WhenProper_ShouldReturnSortedDataOnBasicOfBattingAndBowlingAverage() throws IOException {
+        CricketAnalyzer cricketAnalyzer=new CricketAnalyzer();
+        String sortOnAverageOfBowlingAndBatting = cricketAnalyzer.analyseIPLData(SortedField.ALL_ROUNDER_AVERAGE, IPL_MOST_RUN_CSV_FILE, IPL_MOST_WICKET_CSV_FILE);
+        IplAllRounderDTO[] iplAllRounderDTOS = new Gson().fromJson(sortOnAverageOfBowlingAndBatting, IplAllRounderDTO[].class);
+        Assert.assertEquals("Krishnappa Gowtham",iplAllRounderDTOS[iplAllRounderDTOS.length-1].player);
+
     }
 }

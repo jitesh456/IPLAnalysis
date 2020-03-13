@@ -8,8 +8,6 @@ public class IPLException extends RuntimeException {
     }
 
     public  enum ExceptionType{
-        NO_SUCH_FIELD,CSV_FILE_PROBLEM,NOT_A_VALID_TYPE, NO_SUCH_TYPE;
-
-
+       CSV_FILE_PROBLEM, NO_SUCH_TYPE;
     }
 }
